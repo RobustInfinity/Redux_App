@@ -1,19 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import Header from './components/layout/Header'
+import Home from './components/pages/Home'
+import AddContact from './components/contact/AddContact';
+import EditContact from './components/contact/EditContact'
+import Contacts from './components/contact/Contacts';
+import About from './components/pages/About'
+import NotFound from './components/pages/404'
+
+import './stylesheets/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 
 class App extends Component {
   render() {
     return (
+      <Router>
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Header brand='Redux App'></Header>
+        <Switch>
+        <Route exact path='/' component={Home}></Route>
+        <Route exact path='/contact/add' component={AddContact}></Route>
+        <Route exact path='/contact/contacts' component={Contacts}></Route>
+        <Route exact path='/contact/about' component={About}></Route>
+        <Route exact path='/contact/editContact' component={EditContact}></Route>
+        <Route component={NotFound}></Route>
+        </Switch>
       </div>
+      </Router>
     );
   }
 }
