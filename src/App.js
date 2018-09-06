@@ -8,6 +8,9 @@ import Contacts from './components/contact/Contacts';
 import About from './components/pages/About'
 import NotFound from './components/pages/404'
 
+import { Provider } from 'react-redux'
+import store from './store'
+
 import './stylesheets/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -15,6 +18,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 class App extends Component {
   render() {
     return (
+      <Provider store={store}>
       <Router>
       <div className="App">
         <Header brand='Redux App'></Header>
@@ -28,6 +32,7 @@ class App extends Component {
         </Switch>
       </div>
       </Router>
+      </Provider>
     );
   }
 }

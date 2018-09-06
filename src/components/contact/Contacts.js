@@ -1,29 +1,18 @@
 import React, {Component} from 'react'
 import Contact from './Contact'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { GET_CONTACTS } from '../../actions/types';
 
 
 class Contacts extends Component{
-    state={
-        contacts : [{
-            id : 1,
-            name : 'Jhon Smith',
-            email : 'jhon@email.com',
-            phone  : '986755678'
-        },{
-            id : 2,
-            name : 'Andrew Jhonson',
-            email : 'andrew@gmail.com',
-            phone : '3456789'
-        },{
-            id : 3,
-            name : 'Bob Marley',
-            email : 'bob@gmail.com',
-            phone : '34567890'
-        }]
+    componentDidMount(){
+        this.props.getContacts();
     }
 
     render(){
-        const {contacts} = this.state
+        const {contacts} = this.props
+        console.log(contacts)
         return(
             <React.Fragment>
             {contacts.map((contact)=>{
@@ -34,4 +23,15 @@ class Contacts extends Component{
     }
 }
 
-export default Contacts;
+const mapStateToProps = (state) =>({
+    contacts : state.contact.contacts
+})
+
+const mapDispatchToProps = (dispatch)=>({
+    getContacts : () => dispatch({type : GET_CONTACTS})
+})
+
+Contacts.propTypes = {
+    contacts : PropTypes.array.isRequired
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Contact);
